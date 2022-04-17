@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="IumeHomeForm.Designer.cs~RF19009ba.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="IumeLibrary">
       <HintPath>..\IumeLibrary\bin\Debug\net6.0\IumeLibrary.dll</HintPath>
     </Reference>

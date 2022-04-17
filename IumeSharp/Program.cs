@@ -100,6 +100,78 @@ namespace IumeSharp
                         Console.WriteLine($"El resultado es {rLocal}-{rVisitante}");
                         break;
                     case "3":
+                        byte nprimero;
+                        byte rprimero;
+                        byte rsegundo;
+                        char respuestaCopa;
+                        do
+                        {
+                            do
+                            {
+                                rprimero = 0;
+                                Console.WriteLine("¿En qué categoría está el primer equipo?\n\t"
+
+                                    + "1- Primera\n\t"
+                                    + "2- Segunda\n\t"
+                                    + "3- Tercera\n\t"
+                                    + "4- Cuarta\n\t");
+
+                                Byte.TryParse(Console.ReadLine(), out nprimero);
+
+                                switch (nprimero)
+                                {
+                                    case 1:
+                                        rprimero += Copa.Primera();
+                                        break;
+                                    case 2:
+                                        rprimero += Copa.Segunda();
+                                        break;
+                                    case 3:
+                                        rprimero += Copa.Tercera();
+                                        break;
+                                    case 4:
+                                        rprimero += Copa.Cuarta();
+                                        break;
+                                    default:
+                                        Console.WriteLine("Esa no es una opción válida");
+                                        break;
+                                }
+                            } while (nprimero > 4 || nprimero < 0);
+                            byte nsegundo;
+                            do
+                            {
+                                rsegundo = 0;
+                                Console.WriteLine("¿En qué categoría está el segundo equipo?\n\t"
+
+                                    + "1- Primera\n\t"
+                                    + "2- Segunda\n\t"
+                                    + "3- Tercera\n\t"
+                                    + "4- Cuarta\n\t");
+                                Byte.TryParse(Console.ReadLine(), out nsegundo);
+                                
+                                switch (nsegundo)
+                                {
+                                    case 1:
+                                        rsegundo += Copa.Primera();
+                                        break;
+                                    case 2:
+                                        rsegundo += Copa.Segunda();
+                                        break;
+                                    case 3:
+                                        rsegundo += Copa.Tercera();
+                                        break;
+                                    case 4:
+                                        rsegundo += Copa.Cuarta();
+                                        break;
+                                    default:
+                                        Console.WriteLine("Esa no es una opción válida");
+                                        break;
+                                }
+                            } while (nsegundo > 4 || nsegundo < 0);
+                            Console.WriteLine("El resultado es " + rprimero + "-" + rsegundo);
+                            Console.WriteLine("¿Quieres simular otro partido con este sistema? (S/N)");
+                            respuestaCopa = Console.ReadLine().ToUpper()[0];
+                        } while (respuestaCopa == 'S');
                         break;
                     case "4":
                         List<Equipo> participantes = new List<Equipo>();

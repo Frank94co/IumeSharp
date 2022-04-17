@@ -1,6 +1,6 @@
 ﻿namespace IumeWindows
 {
-    partial class IumeHome
+    partial class IumeHomeForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -53,6 +53,7 @@
             this.btnLocVisi.TabIndex = 1;
             this.btnLocVisi.Text = "Partido con local y visitante";
             this.btnLocVisi.UseVisualStyleBackColor = true;
+            this.btnLocVisi.Click += new System.EventHandler(this.btnLocVisi_Click);
             // 
             // btnCopa
             // 
@@ -62,6 +63,7 @@
             this.btnCopa.TabIndex = 2;
             this.btnCopa.Text = "Partido de Copa";
             this.btnCopa.UseVisualStyleBackColor = true;
+            this.btnCopa.Click += new System.EventHandler(this.btnCopa_Click);
             // 
             // btnCopaEntera
             // 
@@ -71,6 +73,7 @@
             this.btnCopaEntera.TabIndex = 3;
             this.btnCopaEntera.Text = "Copa entera";
             this.btnCopaEntera.UseVisualStyleBackColor = true;
+            this.btnCopaEntera.Click += new System.EventHandler(this.btnCopaEntera_Click);
             // 
             // btnReportBug
             // 

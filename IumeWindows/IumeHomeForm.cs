@@ -2,9 +2,9 @@ using IumeLibrary.Nivel;
 
 namespace IumeWindows
 {
-    public partial class IumeHome : Form
+    public partial class IumeHomeForm : Form
     {
-        public IumeHome()
+        public IumeHomeForm()
         {
             InitializeComponent();
         }
@@ -27,6 +27,23 @@ namespace IumeWindows
                     isNeeded = false;
                 }
             } while(isNeeded);
+        }
+
+        private void btnLocVisi_Click(object sender, EventArgs e)
+        {
+            IumeStandardMatchForm iumeStandardMatchForm = new IumeStandardMatchForm();
+            iumeStandardMatchForm.Show();
+        }
+
+        private void btnCopa_Click(object sender, EventArgs e)
+        {
+            IumeCupMatchForm iumeCupMatchForm = new IumeCupMatchForm();
+            iumeCupMatchForm.Show();
+        }
+
+        private void btnCopaEntera_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
