@@ -33,6 +33,7 @@
             this.btnCopa = new System.Windows.Forms.Button();
             this.btnCopaEntera = new System.Windows.Forms.Button();
             this.btnReportBug = new System.Windows.Forms.Button();
+            this.seleccionarArchivo = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // btnCampoNeutral
@@ -85,7 +86,13 @@
             this.btnReportBug.UseVisualStyleBackColor = true;
             this.btnReportBug.Click += new System.EventHandler(this.btnReportBug_Click);
             // 
-            // IumeHome
+            // seleccionarArchivo
+            // 
+            this.seleccionarArchivo.FileName = "openFileDialog1";
+            this.seleccionarArchivo.Filter = "Archivos delimitados (*.csv, *.txt)|*.csv;*.txt;";
+            this.seleccionarArchivo.InitialDirectory = "C:/Desktop";
+            // 
+            // IumeHomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -95,7 +102,7 @@
             this.Controls.Add(this.btnCopa);
             this.Controls.Add(this.btnLocVisi);
             this.Controls.Add(this.btnCampoNeutral);
-            this.Name = "IumeHome";
+            this.Name = "IumeHomeForm";
             this.Text = "Iume";
             this.ResumeLayout(false);
 
@@ -108,5 +115,6 @@
         private Button btnCopa;
         private Button btnCopaEntera;
         private Button btnReportBug;
+        private OpenFileDialog seleccionarArchivo;
     }
 }

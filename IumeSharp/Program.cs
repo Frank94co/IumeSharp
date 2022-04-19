@@ -220,10 +220,17 @@ namespace IumeSharp
             }
             else
             {
-                if (participantes.Count % 2 == 1)
+                //Calcula la potencia de 2 menor a la cantidad de participantes
+                int potencia = (int)Math.Floor(Math.Log2(participantes.Count));
+                int exentos = (int)(participantes.Count - Math.Pow(2, potencia));
+                if (exentos >= 0)
                 {
-                    participantes.Add(new Equipo("Bye", categoria: 5));
+                    for (int i = 1; i <= exentos; i++)
+                    {
+                        participantes.Add(new Equipo("Bye", categoria: 5));
+                    }
                 }
+
                 short iteraciones = (short)(participantes.Count / 2);
                 Random random = new Random();
                 Equipo local, visitante;
@@ -231,12 +238,34 @@ namespace IumeSharp
 
                 for (short i = 0; i < iteraciones; i++)
                 {
-                    aux = (short)random.Next(participantes.Count);
-                    local = participantes[aux];
+                    //programa los equipos exentos
+                    if (participantes.Find(e => e.Nombre == "Bye") != null)
+                    {
+                        aux = (short)random.Next(participantes.Count - exentos);
+                        int indiceBye = participantes.FindLastIndex(e => e.Nombre == "Bye");
+                        if (aux % 2 == 0)
+                        {
+                            local = participantes[aux];
+                            visitante = participantes[indiceBye];
+                        }
+                        else
+                        {
+                            visitante = participantes[aux];
+                            local = participantes[indiceBye];
+                        }
+                    }
+                    else
+                    {
+                        //de este bucle no se sale sino hasta que encuentre dos equipos que se llamen distinto
+                        do
+                        {
+                            aux = (short)random.Next(participantes.Count);
+                            local = participantes[aux];
+                            aux = (short)random.Next(participantes.Count);
+                            visitante = participantes[aux];
+                        } while (local.Nombre == visitante.Nombre);
+                    }
                     participantes.Remove(local);
-
-                    aux = (short)random.Next(participantes.Count);
-                    visitante = participantes[aux];
                     participantes.Remove(visitante);
 
                     if (local.Nombre == "Bye")
@@ -289,7 +318,7 @@ namespace IumeSharp
                                 }
                                 break;
                         }
-                        Console.WriteLine($"{local} {rLocal}-{rVisitante} {visitante}");
+                        var resultado = $"{local} {rLocal}-{rVisitante} {visitante}. ";
                         if (rLocal > rVisitante)
                         {
                             ganadores.Add(local);
@@ -300,27 +329,21 @@ namespace IumeSharp
                         }
                         else
                         {
-                            byte eleccion;
-                            do
+                            Tuple<int, int, int> tandaPenaltis = Copa.EjecutarTandaPenaltis();
+                            int penalesLanzados = 0;
+                            if (tandaPenaltis.Item1 > tandaPenaltis.Item2)
                             {
-                                Console.WriteLine("Este programa no implementa aún las tandas de penaltis. ");
-                                Console.WriteLine("Tendrás que introducir manualmente qué equipo pasa. ");
-                                Console.WriteLine("(1 para el equipo local y 2 para el visitante)");
-
-                                var parsed = byte.TryParse(Console.ReadLine(), out eleccion);
-                                if (parsed)
-                                {
-                                    if (eleccion == 1)
-                                    {
-                                        ganadores.Add(local);
-                                    }
-                                    else
-                                    {
-                                        ganadores.Add(visitante);
-                                    }
-                                }
-                            } while (eleccion != 1 && eleccion != 2);
+                                penalesLanzados = (tandaPenaltis.Item3 * 2) - 1;
+                                ganadores.Add(local);
+                            }
+                            else
+                            {
+                                penalesLanzados = tandaPenaltis.Item3 * 2;
+                                ganadores.Add(visitante);
+                            }
+                            resultado += $"Por tanda de penaltis, el resultado fue {tandaPenaltis.Item1}-{tandaPenaltis.Item2}, después de {penalesLanzados} penales lanzados.";
                         }
+                        Console.WriteLine(resultado);
                     }
                 }
                 Console.WriteLine("-------------------------------------------------");
