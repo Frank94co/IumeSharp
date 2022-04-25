@@ -2,10 +2,9 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net5.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
-    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,7 +13,7 @@
 
   <ItemGroup>
     <Reference Include="IumeLibrary">
-      <HintPath>..\IumeLibrary\bin\Debug\net6.0\IumeLibrary.dll</HintPath>
+      <HintPath>..\IumeLibrary\bin\Debug\net5.0\IumeLibrary.dll</HintPath>
     </Reference>
   </ItemGroup>
 

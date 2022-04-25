@@ -1,5 +1,9 @@
 using IumeLibrary.Competencia;
 using IumeLibrary.Nivel;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Windows.Forms;
 
 namespace IumeWindows
 {

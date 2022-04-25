@@ -1,4 +1,6 @@
-﻿namespace IumeWindows
+﻿using System.Windows.Forms;
+
+namespace IumeWindows
 {
     partial class IumeStandardMatchForm
     {
