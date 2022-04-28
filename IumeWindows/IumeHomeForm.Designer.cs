@@ -36,6 +36,7 @@ namespace IumeWindows
             this.btnCopaEntera = new System.Windows.Forms.Button();
             this.btnReportBug = new System.Windows.Forms.Button();
             this.seleccionarArchivo = new System.Windows.Forms.OpenFileDialog();
+            this.btnMultijornada = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCampoNeutral
@@ -60,7 +61,7 @@ namespace IumeWindows
             // 
             // btnCopa
             // 
-            this.btnCopa.Location = new System.Drawing.Point(16, 112);
+            this.btnCopa.Location = new System.Drawing.Point(16, 79);
             this.btnCopa.Name = "btnCopa";
             this.btnCopa.Size = new System.Drawing.Size(190, 34);
             this.btnCopa.TabIndex = 2;
@@ -70,7 +71,7 @@ namespace IumeWindows
             // 
             // btnCopaEntera
             // 
-            this.btnCopaEntera.Location = new System.Drawing.Point(243, 112);
+            this.btnCopaEntera.Location = new System.Drawing.Point(243, 79);
             this.btnCopaEntera.Name = "btnCopaEntera";
             this.btnCopaEntera.Size = new System.Drawing.Size(190, 34);
             this.btnCopaEntera.TabIndex = 3;
@@ -80,7 +81,7 @@ namespace IumeWindows
             // 
             // btnReportBug
             // 
-            this.btnReportBug.Location = new System.Drawing.Point(151, 169);
+            this.btnReportBug.Location = new System.Drawing.Point(147, 184);
             this.btnReportBug.Name = "btnReportBug";
             this.btnReportBug.Size = new System.Drawing.Size(141, 36);
             this.btnReportBug.TabIndex = 4;
@@ -94,11 +95,22 @@ namespace IumeWindows
             this.seleccionarArchivo.Filter = "Archivos delimitados (*.csv, *.txt)|*.csv;*.txt;";
             this.seleccionarArchivo.InitialDirectory = "C:/Desktop";
             // 
+            // btnMultijornada
+            // 
+            this.btnMultijornada.Location = new System.Drawing.Point(147, 129);
+            this.btnMultijornada.Name = "btnMultijornada";
+            this.btnMultijornada.Size = new System.Drawing.Size(141, 40);
+            this.btnMultijornada.TabIndex = 5;
+            this.btnMultijornada.Text = "Multijornada";
+            this.btnMultijornada.UseVisualStyleBackColor = true;
+            this.btnMultijornada.Click += new System.EventHandler(this.btnMultijornada_Click);
+            // 
             // IumeHomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(444, 232);
+            this.Controls.Add(this.btnMultijornada);
             this.Controls.Add(this.btnReportBug);
             this.Controls.Add(this.btnCopaEntera);
             this.Controls.Add(this.btnCopa);
@@ -118,5 +130,6 @@ namespace IumeWindows
         private Button btnCopaEntera;
         private Button btnReportBug;
         private OpenFileDialog seleccionarArchivo;
+        private Button btnMultijornada;
     }
 }

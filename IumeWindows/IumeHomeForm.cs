@@ -3,6 +3,7 @@ using IumeLibrary.Nivel;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace IumeWindows
@@ -225,6 +226,145 @@ namespace IumeWindows
                     ronda = ronda + 1;
                     CopaEntera(ganadores, ronda);
                 }
+            }
+        }
+
+        private void btnMultijornada_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (seleccionarArchivo.ShowDialog() == DialogResult.OK)
+                {
+                    if (seleccionarArchivo.CheckFileExists)
+                    {
+                        using (var sr = new StreamReader(seleccionarArchivo.FileName))
+                        {
+                            string mensaje = "";
+                            string line;
+                            List<Equipo> equipos = new List<Equipo>();
+                            while ((line = sr.ReadLine()) != null)
+                            {
+                                if (line.StartsWith("#"))
+                                {
+                                    mensaje += $"{line.Split("$")[1]} {line.Split("$")[2]}: \n";
+                                }
+                                else
+                                {
+                                    if (line.Contains("-"))
+                                    {
+                                        string[] partido = line.Split('-');
+                                        string l = partido[0];
+                                        string v = partido[1];
+
+                                        Equipo? local = equipos.Find(e => e.Nombre == l.Split("|")[1] && e.Nivel == Convert.ToByte(l.Split("|")[0]));
+                                        Equipo? visitante = equipos.Find(e => e.Nombre == v.Split("|")[1] && e.Nivel == Convert.ToByte(v.Split("|")[0]));
+                                        if(local!= null && visitante != null)
+                                        {
+                                            byte gLocal = 0, gVisitante = 0;
+                                            switch (local.Nivel)
+                                            {
+                                                case 0:
+                                                    gLocal = IumeLibrary.Nivel.Top.Local();
+                                                    break;
+                                                case 1:
+                                                    gLocal = Alto.Local();
+                                                    break;
+                                                case 2:
+                                                    gLocal = Medio.Local();
+                                                    break;
+                                                case 3:
+                                                    gLocal = Bajo.Local();
+                                                    break;
+                                            }
+                                            switch (visitante.Nivel)
+                                            {
+                                                case 0:
+                                                    gVisitante = IumeLibrary.Nivel.Top.Visitante();
+                                                    break;
+                                                case 1:
+                                                    gVisitante = Alto.Visitante();
+                                                    break;
+                                                case 2:
+                                                    gVisitante = Medio.Visitante();
+                                                    break;
+                                                case 3:
+                                                    gVisitante = Bajo.Visitante();
+                                                    break;
+                                            }
+                                            local.GolesMarcados += gLocal;
+                                            visitante.GolesMarcados += gVisitante;
+                                            local.GolesRecibidos += gVisitante;
+                                            visitante.GolesRecibidos += gLocal;
+                                            local.Jugados += 1;
+                                            visitante.Jugados += 1;
+                                            if (gLocal == gVisitante)
+                                            {
+                                                local.Puntos += 1;
+                                                visitante.Puntos += 1;
+                                                local.Empates += 1;
+                                                visitante.Empates += 1;
+                                            }
+                                            else
+                                            {
+                                                if (gLocal > gVisitante)
+                                                {
+                                                    local.Puntos += 3;
+                                                    local.Victorias += 1;
+                                                    visitante.Derrotas += 1;
+                                                }
+                                                else
+                                                {
+                                                    visitante.Puntos += 3;
+                                                    visitante.Victorias += 1;
+                                                    local.Derrotas += 1;
+                                                }
+                                            }
+                                            mensaje += $"\t {local} {gLocal}-{gVisitante} {visitante} \n";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Equipo competidor = new Equipo(line.Split("|")[1], nivel: Convert.ToByte(line.Split("|")[0]));
+                                        mensaje += $"{competidor}, de nivel ";
+                                        switch (competidor.Nivel)
+                                        {
+                                            case 0:
+                                                mensaje += $"top\n";
+                                                break;
+                                            case 1:
+                                                mensaje += $"alto\n";
+                                                break;
+                                            case 2:
+                                                mensaje += $"medio\n";
+                                                break;
+                                            case 3:
+                                                mensaje += $"bajo\n";
+                                                break;
+                                        }
+                                        equipos.Add(competidor);
+                                    }
+                                }
+                            }
+                            var listaOrdenada = (from eq in equipos
+                                                 orderby eq.Puntos descending, eq.GolesMarcados - eq.GolesRecibidos descending, eq.GolesMarcados descending
+                                                 select eq).ToList();
+                            mensaje += "==================================================\n";
+                            mensaje += "Equipo\t| PJ | PG | PE | PP | GF | GC | DG | Pt\n";
+
+                            for (int i = 0; i < listaOrdenada.Count; i++)
+                            {
+                                mensaje += $"{i + 1}. {listaOrdenada[i].Nombre}| {listaOrdenada[i].Jugados} | {listaOrdenada[i].Victorias} | {listaOrdenada[i].Empates} | {listaOrdenada[i].Derrotas} | {listaOrdenada[i].GolesMarcados} | {listaOrdenada[i].GolesRecibidos} | {listaOrdenada[i].GolesMarcados - listaOrdenada[i].GolesRecibidos} | {listaOrdenada[i].Puntos}\n";
+                            }
+
+                            File.WriteAllText("informe_completo_multi.txt", mensaje);
+                            MessageBox.Show("Se ha emitido un informe completo de los partidos ingresados", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
