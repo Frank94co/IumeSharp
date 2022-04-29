@@ -51,6 +51,8 @@ namespace IumeWindows
         {
             try
             {
+                //Borrar el archivo donde se guarda la Copa si ya existe.
+
                 if(seleccionarArchivo.ShowDialog()== DialogResult.OK)
                 {
                     if (seleccionarArchivo.CheckFileExists)
@@ -70,7 +72,7 @@ namespace IumeWindows
                             "Información", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                         if(respuesta== DialogResult.Yes)
                         {
-                            CopaEntera(equipos, 1);
+                            CopaEntera(equipos, 1, "");
                         }
                     }
                 }
@@ -81,12 +83,14 @@ namespace IumeWindows
             }
         }
 
-        private void CopaEntera(List<Equipo> participantes, int ronda)
+        private void CopaEntera(List<Equipo> participantes, int ronda, string resultado)
         {
             List<Equipo> ganadores = new List<Equipo>();
             if (participantes.Count == 1)
             {
-                MessageBox.Show($"El ganador del torneo es: {participantes[0]}",
+                resultado += $"El ganador del torneo es: {participantes[0]}.";
+                File.WriteAllText("informe_completo_copa.txt", resultado);
+                MessageBox.Show($"El ganador del torneo es {participantes[0]} y se ha realizado un informe recapitulando la copa",
                     "Información", MessageBoxButtons.OK, MessageBoxIcon.Hand);
             }
             else
@@ -107,7 +111,7 @@ namespace IumeWindows
                 Equipo local, visitante;
                 short aux;
 
-                string resultado = "";
+                resultado += $"Ronda {ronda}: \n";
                 for (short i = 0; i < iteraciones; i++)
                 {
                     //programa los equipos exentos
@@ -216,15 +220,21 @@ namespace IumeWindows
                                 ganadores.Add(visitante);
                             }
 
-                            resultado += $"Por tanda de penaltis, el resultado fue {tandaPenaltis.Item1}-{tandaPenaltis.Item2}, después de {penalesLanzados} penales lanzados \n";
+                            resultado += $"Por tanda de penaltis, el resultado fue {tandaPenaltis.Item1}-{tandaPenaltis.Item2}, después de {penalesLanzados} penales lanzados. \n";
                         }
                     }
                 }
-                var respuesta= MessageBox.Show(resultado, $"Ronda {ronda} terminada", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                resultado += "======================================================\n";
+
+                var respuesta= MessageBox.Show($"Ronda {ronda} terminada. ¿Desea continuar la copa?", $"Ronda {ronda} terminada", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (respuesta == DialogResult.Yes)
                 {
                     ronda = ronda + 1;
-                    CopaEntera(ganadores, ronda);
+                    CopaEntera(ganadores, ronda, resultado);
+                }else if(respuesta== DialogResult.No)
+                {
+                    File.WriteAllText("informe_parcial_copa.txt", resultado);
+                    MessageBox.Show("Se emitió un informe parcial de la copa al haberse detenido", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
         }

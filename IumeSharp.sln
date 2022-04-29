@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IumeSharp", "IumeSharp\Iume
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IumeLibrary", "IumeLibrary\IumeLibrary.csproj", "{67B7AB4B-820B-4BFE-9DE0-BAE376173905}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IumeWindows", "IumeWindows\IumeWindows.csproj", "{1AA75959-C1BB-4FBC-A626-47AB2CFB3BB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IumeWindows", "IumeWindows\IumeWindows.csproj", "{1AA75959-C1BB-4FBC-A626-47AB2CFB3BB2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
