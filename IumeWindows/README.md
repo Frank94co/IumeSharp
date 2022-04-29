@@ -1,7 +1,14 @@
-## IumeSharp
+## IumeWindows
 
-Este simulador de partidos mediante dados es un port hacia C# del realizado por @Fafnir98 en [este repositorio](https://github.com/Fafnir98/iume) y como tal, el funcionamiento es exactamente el mismo que el mostrado en la aplicación de Fafnir, solo que se puede ejecutar con doble clic en IumeSharp.exe de la carpeta bin de este proyecto. Se pretenderá que en un futuro se puedan cargar los equipos de Copa mediante un archivo de texto situado en el escritorio de la máquina cliente y se han corregido, de momento, algunos bugs que tenía la versión original de la herramienta. 
+Esta aplicación de Windows readapta el port hacia C# mostrado en IumeSharp, poniéndole interfaz gráfica, como siempre, Iume es una creación original de @Fafnir98 en [este repositorio](https://github.com/Fafnir98/iume) . 
 
-Más adelante se corregirá un bug localizado en la adición de equipos a la Copa, que produce un error si la categoría es distinta a valores numéricos. 
+La funcionalidad de la aplicación de Windows cuenta con seis botones, que funcionan de la siguiente manera:
+
+ 1. Partido en campo neutral: Haciendo clic en este botón, se hace una simulación de un encuentro en cancha neutral, emitiendo un mensaje con el resultado. 
+ 2. Partido con local y visitante: Haciendo clic en este botón, sale una nueva ventana donde se ha de indicar el nivel tanto del local como del visitante, entre 4 opciones: top, alto, medio y bajo. Una vez se indican los niveles, se puede emitir el mensaje con el resultado con el botón de Resultado. 
+ 3. Partido de Copa: Haciendo clic en este botón, sale una nueva ventana donde se ha de indicar la *división* de los rivales, entre 1ª y 15ª. Haciendo clic en el botón de resultado, sale un mensaje con el resultado.
+ 4. Copa entera: Haciendo clic en este botón, se muestra una ventana en la que se pueden cargar archivos .CSV o .TXT con el formato que se muestra en el archivo `equipos_copa.csv` en [esta carpeta](https://github.com/Frank94co/IumeSharp/tree/master/IumeWindows/Plantillas). Se pueden ejecutar tantas rondas como se desee. Si la copa acaba, el archivo que se almacena con la recapitulación de la copa se llama `informe_completo_copa.txt` y si se decide acabar prematuramente, la recapitulación se llamará `informe_parcial_copa.txt`.
+ 5. Multijornada: Haciendo clic en este botón, se muestra una ventana en la que se pueden cargar archivos .CSV o .TXT con el formato que se muestra en el archivo `multiliga.csv` en [esta carpeta](https://github.com/Frank94co/IumeSharp/tree/master/IumeWindows/Plantillas). Si se carga un archivo del formato correcto, emitirá los resultados de todas las jornadas cargadas con una tabla de posiciones al final del archivo llamado `informe_completo_multi.txt`, donde el factor de desempate es, aparte de los puntos, la diferencia de goles general y luego los goles marcados, por simplicidad. 
+ 6. Reportar bug: Se emite un mensaje con la información de contacto para reportar algún bug. 
 
 De la misma forma que lo ha comunicado Fafnir en su README, se permiten modificaciones o *ports* de código siempre que se den créditos a la obra original, o que no se haga con fines de lucro.
