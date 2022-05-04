@@ -96,8 +96,8 @@ namespace IumeWindows
             else
             {
                 //Calcula la potencia de 2 menor a la cantidad de participantes
-                int potencia = (int)Math.Floor(Math.Log2(participantes.Count));
-                int exentos = (int)(participantes.Count - Math.Pow(2, potencia));
+                int potencia = (int)Math.Ceiling(Math.Log2(participantes.Count));
+                int exentos = (int)(Math.Pow(2, potencia) - participantes.Count);
                 if (exentos >= 0)
                 {
                     for (int i = 1; i <= exentos; i++)
